@@ -1,0 +1,73 @@
+type Product {
+  id: Int!
+  title: String!
+  price: String!
+  category: String!
+  description: String!
+  image: String!
+}
+
+type Category {
+  code: String!
+  products: [Product]
+}
+
+type Username {
+  firstname: String!
+  lastname: String!
+}
+
+type Address {
+  city: String!
+  street: String!
+  number: Int!
+  zipcode: String!
+}
+
+type User {
+  id: String!
+  email: String!
+  name: Username!
+  address: Address!
+}
+
+type ShopCartItemProduct {
+  id: Int!
+  title: String!
+  price: Int!
+  image: String!
+}
+
+type ShopCartItem {
+  product: ShopCartItemProduct!
+  quantity: Int!
+}
+
+type ShopCart {
+  id: String!
+  userId: String!
+  items: [ShopCartItem]!
+  totalUnits: Int!
+  totalAmount: Int!
+}
+
+
+type Query {
+  categories: [Category]!
+  productsByCategory(categoryCode: String!): [Product]!
+  product(productId: Int!): Product
+  cart: ShopCart
+}
+
+input NewShopCartItem {
+  productId: Int!
+  quantity: Int!
+}
+
+type Mutation {
+  addProductToCart(cartItem: NewShopCartItem): ShopCart
+}
+
+type Subscription {
+  productAddedToCart(shopCartId: Int!): ShopCartItem
+}

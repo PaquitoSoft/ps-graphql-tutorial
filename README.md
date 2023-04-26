@@ -15,3 +15,8 @@ Run `npx nx connect-to-nx-cloud` to enable [remote caching](https://nx.app) and 
 ## Further help
 
 Visit the [Nx Documentation](https://nx.dev) to learn more.
+
+paquitosoftware
+BBDEIHnqjL5cckzy
+
+mongodb+srv://paquitosoftware:BBDEIHnqjL5cckzy@graphqlworkshopcluster.k65pgrv.mongodb.net/?retryWrites=true&w=majority
