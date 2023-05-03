@@ -59,7 +59,7 @@ async function bootstrap() {
       return {
         request,
         params,
-        userId: authHeader ? authHeader.split(' ')[0] : undefined,
+        userId: authHeader ? authHeader.split(' ')[1] : undefined,
         pubSub,
         dataSources: {
           categories: new CategoriesAPI(ecommerceRestApiUrl),

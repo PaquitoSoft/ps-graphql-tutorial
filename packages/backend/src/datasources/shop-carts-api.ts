@@ -42,7 +42,7 @@ class ShopCartsAPI {
     this.#model = shopCartSchema;
   }
 
-  async getUserShopCart(userId: string): Promise<ShopCart> {
+  async #findOrCreateUserCart(userId: string) {
     let shopCart = await this.#model.findOne({ userId });
     if (!shopCart) {
       shopCart = new this.#model({
@@ -51,6 +51,11 @@ class ShopCartsAPI {
       });
       shopCart = await shopCart.save();
     }
+    return shopCart;
+  }
+
+  async getUserShopCart(userId: string): Promise<ShopCart> {
+    const shopCart = await this.#findOrCreateUserCart(userId);
     return {
       id: shopCart.id,
       userId,
@@ -58,13 +63,13 @@ class ShopCartsAPI {
         quantity: item.quantity,
         product: item.product,
       })),
-      totalAmount: 0,
-      totalUnits: 0
+      totalAmount: shopCart.totalAmount,
+      totalUnits: shopCart.totalUnits
     };
   }
 
   async addProduct(product: Product, userId: string): Promise<ShopCart> {
-    const shopCart = await this.getUserShopCart(userId);
+    const shopCart = await this.#findOrCreateUserCart(userId);
     const shopCartItem = shopCart.items.find(item => item.product.id === product.id);
 
     if (!shopCartItem) {
