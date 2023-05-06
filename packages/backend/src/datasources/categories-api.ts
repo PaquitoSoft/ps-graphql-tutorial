@@ -16,6 +16,11 @@ class CategoriesAPI extends RESTDataSource {
     }))
   }
 
+  async getCategory(categoryCode: string): Promise<Category> {
+    const allCategories = await this.getAll();
+    return allCategories.find(category => category.code === categoryCode);
+  }
+
 }
 
 export default CategoriesAPI;

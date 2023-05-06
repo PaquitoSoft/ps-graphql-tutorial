@@ -54,7 +54,7 @@ type ShopCart {
 
 type Query {
   categories: [Category]!
-  productsByCategory(categoryCode: String!): [Product]!
+  category(categoryCode: String): Category!
   product(productId: Int!): Product
   cart: ShopCart @authRequired
 }

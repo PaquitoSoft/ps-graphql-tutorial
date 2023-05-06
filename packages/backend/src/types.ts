@@ -59,18 +59,18 @@ export type Query = {
   __typename?: 'Query';
   cart?: Maybe<ShopCart>;
   categories: Array<Maybe<Category>>;
+  category: Category;
   product?: Maybe<Product>;
-  productsByCategory: Array<Maybe<Product>>;
+};
+
+
+export type QueryCategoryArgs = {
+  categoryCode?: InputMaybe<Scalars['String']>;
 };
 
 
 export type QueryProductArgs = {
   productId: Scalars['Int'];
-};
-
-
-export type QueryProductsByCategoryArgs = {
-  categoryCode: Scalars['String'];
 };
 
 export type ShopCart = {
@@ -258,8 +258,8 @@ export type ProductResolvers<ContextType = GraphqlContext, ParentType extends Re
 export type QueryResolvers<ContextType = GraphqlContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   cart?: Resolver<Maybe<ResolversTypes['ShopCart']>, ParentType, ContextType>;
   categories?: Resolver<Array<Maybe<ResolversTypes['Category']>>, ParentType, ContextType>;
+  category?: Resolver<ResolversTypes['Category'], ParentType, ContextType, Partial<QueryCategoryArgs>>;
   product?: Resolver<Maybe<ResolversTypes['Product']>, ParentType, ContextType, RequireFields<QueryProductArgs, 'productId'>>;
-  productsByCategory?: Resolver<Array<Maybe<ResolversTypes['Product']>>, ParentType, ContextType, RequireFields<QueryProductsByCategoryArgs, 'categoryCode'>>;
 };
 
 export type ShopCartResolvers<ContextType = GraphqlContext, ParentType extends ResolversParentTypes['ShopCart'] = ResolversParentTypes['ShopCart']> = {
