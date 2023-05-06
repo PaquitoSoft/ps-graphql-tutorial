@@ -12,6 +12,7 @@ import { loadFilesSync } from '@graphql-tools/load-files';
 import { mergeResolvers } from '@graphql-tools/merge';
 
 import { Resolvers, ShopCartItem } from './types';
+import authRequiredDirective from './directives/auth-required';
 import CategoriesAPI from './datasources/categories-api';
 import ProductsAPI from './datasources/products-api';
 import ShopCartsAPI from './datasources/shop-carts-api';
@@ -43,6 +44,16 @@ const typeDefs = readFileSync(path.join(__dirname, './schema.graphql'), 'utf8');
 const resolversArray = loadFilesSync(path.join(__dirname, './resolvers'));
 const resolvers: Resolvers = mergeResolvers(resolversArray);
 
+const { authDirectiveTypeDef, authDirectiveTransformer } = authRequiredDirective();
+
+console.log({ authDirectiveTypeDef });
+
+let schema = createSchema({
+  typeDefs: [authDirectiveTypeDef, typeDefs],
+  resolvers
+});
+schema = authDirectiveTransformer(schema);
+
 async function bootstrap() {
   // Connect to database
   await connect(process.env.DATABASE_CONNECTION_URL);
@@ -50,10 +61,8 @@ async function bootstrap() {
 
   // Create Yoga instance
   const yoga = createYoga({
-    schema: createSchema({
-      typeDefs,
-      resolvers
-    }),
+    schema,
+    maskedErrors: false,
     context({ request, params }) {
       const authHeader = request.headers.get('Authorization');
       return {

@@ -56,7 +56,7 @@ type Query {
   categories: [Category]!
   productsByCategory(categoryCode: String!): [Product]!
   product(productId: Int!): Product
-  cart: ShopCart
+  cart: ShopCart @authRequired
 }
 
 input NewShopCartItem {
@@ -65,7 +65,7 @@ input NewShopCartItem {
 }
 
 type Mutation {
-  addProductToCart(cartItem: NewShopCartItem): ShopCart
+  addProductToCart(cartItem: NewShopCartItem): ShopCart @authRequired
 }
 
 type Subscription {
