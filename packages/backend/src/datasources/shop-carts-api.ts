@@ -1,41 +1,41 @@
-import { RESTDataSource } from "@apollo/datasource-rest";
-import { Product, ShopCart, ShopCartItem } from "../types";
+// import { RESTDataSource } from "@apollo/datasource-rest";
+import { Product, ShopCart } from "../types";
 import { Model } from "mongoose";
 import { TDBShopCart } from "../db/models/shop-cart.model";
 
-class _ShopCartsAPI extends RESTDataSource {
+// class _ShopCartsAPI extends RESTDataSource {
 
-  constructor(baseUrl: string) {
-    super();
-    this.baseURL = baseUrl;
-  }
+//   constructor(baseUrl: string) {
+//     super();
+//     this.baseURL = baseUrl;
+//   }
 
-  getUserShopCart(userId: number) {
-    return this.get<ShopCart>(`/carts/user/${userId}`, {
-      params: {
-        sort: 'desc',
-        limit: '1'
-      }
-    });
-  }
+//   getUserShopCart(userId: number) {
+//     return this.get<ShopCart>(`/carts/user/${userId}`, {
+//       params: {
+//         sort: 'desc',
+//         limit: '1'
+//       }
+//     });
+//   }
 
-  addProduct(userId: number, shopCartItem: ShopCartItem, shopCartId?: number,) {
-    const httpMethod = shopCartId ? 'put' : 'post';
-    console.log(
-      'ShopCartsAPI::addProduct# Date for the cart:',
-      (new Date()).toISOString().split('T')[0]
-    );
+//   addProduct(userId: number, shopCartItem: ShopCartItem, shopCartId?: number,) {
+//     const httpMethod = shopCartId ? 'put' : 'post';
+//     console.log(
+//       'ShopCartsAPI::addProduct# Date for the cart:',
+//       (new Date()).toISOString().split('T')[0]
+//     );
 
-    return this[httpMethod]<ShopCart>(`/carts`, {
-      body: {
-        userId,
-        date: (new Date()).toISOString().split('T')[0],
-        products: [shopCartItem]
-      }
-    });
-  }
+//     return this[httpMethod]<ShopCart>(`/carts`, {
+//       body: {
+//         userId,
+//         date: (new Date()).toISOString().split('T')[0],
+//         products: [shopCartItem]
+//       }
+//     });
+//   }
 
-}
+// }
 class ShopCartsAPI {
   #model: Model<TDBShopCart>;
   constructor(shopCartSchema: Model<TDBShopCart>) {

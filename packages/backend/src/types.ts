@@ -51,6 +51,7 @@ export type Product = {
   description: Scalars['String'];
   id: Scalars['Int'];
   image: Scalars['String'];
+  isPopular: Scalars['Boolean'];
   price: Scalars['String'];
   title: Scalars['String'];
 };
@@ -58,7 +59,7 @@ export type Product = {
 export type Query = {
   __typename?: 'Query';
   cart?: Maybe<ShopCart>;
-  categories: Array<Maybe<Category>>;
+  categories: Array<Category>;
   category: Category;
   product?: Maybe<Product>;
 };
@@ -250,6 +251,7 @@ export type ProductResolvers<ContextType = GraphqlContext, ParentType extends Re
   description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   image?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  isPopular?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   price?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -257,7 +259,7 @@ export type ProductResolvers<ContextType = GraphqlContext, ParentType extends Re
 
 export type QueryResolvers<ContextType = GraphqlContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   cart?: Resolver<Maybe<ResolversTypes['ShopCart']>, ParentType, ContextType>;
-  categories?: Resolver<Array<Maybe<ResolversTypes['Category']>>, ParentType, ContextType>;
+  categories?: Resolver<Array<ResolversTypes['Category']>, ParentType, ContextType>;
   category?: Resolver<ResolversTypes['Category'], ParentType, ContextType, Partial<QueryCategoryArgs>>;
   product?: Resolver<Maybe<ResolversTypes['Product']>, ParentType, ContextType, RequireFields<QueryProductArgs, 'productId'>>;
 };
@@ -317,3 +319,12 @@ export type Resolvers<ContextType = GraphqlContext> = {
   Username?: UsernameResolvers<ContextType>;
 };
 
+
+
+export const LayoutDataQuery = gql`
+    query LayoutDataQuery {
+  categories {
+    code
+  }
+}
+    `;

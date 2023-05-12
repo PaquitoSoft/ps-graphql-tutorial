@@ -5,6 +5,7 @@ type Product {
   category: String!
   description: String!
   image: String!
+  isPopular: Boolean!
 }
 
 type Category {
@@ -53,7 +54,7 @@ type ShopCart {
 
 
 type Query {
-  categories: [Category]!
+  categories: [Category!]!
   category(categoryCode: String): Category!
   product(productId: Int!): Product
   cart: ShopCart @authRequired
