@@ -19,7 +19,7 @@ const layoutDataQuery = graphql(/* GraphQL */`
 
 function Layout(props: TLayoutProps) {
   const { data } = useQuery(layoutDataQuery);
-  console.log({ data });
+
   return (
     <>
       <Header categories={data?.categories || []} />

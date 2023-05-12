@@ -1,8 +1,8 @@
 import cx from 'classnames';
-import { Disclosure, Menu, Transition } from '@headlessui/react';
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { Disclosure } from '@headlessui/react';
+import { ShoppingBagIcon } from '@heroicons/react/24/outline';
 import { Category } from '../../gql/graphql';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 type TNavigationItemProps = {
   category: Category;
@@ -12,18 +12,20 @@ const isCurrentPage = (categoryCode: string) => window.location.pathname === `/c
 
 function NavigationItem(props: TNavigationItemProps) {
   return (
-    <Link
+    <NavLink
       key={props.category.code}
       to={`/category/${props.category.code}`}
-      className={cx(
-        { 'bg-gray-900 text-white': isCurrentPage(props.category.code) },
-        { 'text-gray-300 hover:bg-gray-700 hover:text-white': !isCurrentPage(props.category.code) },
-        'rounded-md px-3 py-2 text-sm font-medium'
-      )}
+      className={({ isActive }) =>
+        cx(
+          { 'bg-gray-900 text-white': isActive },
+          { 'text-gray-300 hover:bg-gray-700 hover:text-white': !isActive },
+          'rounded-md px-3 py-2 text-sm font-medium'
+        )
+      }
       aria-current={isCurrentPage(props.category.code) ? 'page' : undefined}
     >
       {props.category.code}
-    </Link>
+    </NavLink>
   );
 }
 

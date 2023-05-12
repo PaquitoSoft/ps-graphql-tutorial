@@ -13,6 +13,7 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
+    "\n  query CategoryDetailQuery($categoryCode: String!) {\n    category(categoryCode: $categoryCode) {\n      code\n      products {\n        id\n        title\n        price\n        image\n        isPopular\n      }\n    }\n  }\n": types.CategoryDetailQueryDocument,
     "\n  query LayoutDataQuery {\n    categories {\n      code\n    }\n  }\n": types.LayoutDataQueryDocument,
 };
 
@@ -30,6 +31,10 @@ const documents = {
  */
 export function graphql(source: string): unknown;
 
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query CategoryDetailQuery($categoryCode: String!) {\n    category(categoryCode: $categoryCode) {\n      code\n      products {\n        id\n        title\n        price\n        image\n        isPopular\n      }\n    }\n  }\n"): (typeof documents)["\n  query CategoryDetailQuery($categoryCode: String!) {\n    category(categoryCode: $categoryCode) {\n      code\n      products {\n        id\n        title\n        price\n        image\n        isPopular\n      }\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

@@ -321,6 +321,20 @@ export type Resolvers<ContextType = GraphqlContext> = {
 
 
 
+export const CategoryDetailQuery = gql`
+    query CategoryDetailQuery($categoryCode: String!) {
+  category(categoryCode: $categoryCode) {
+    code
+    products {
+      id
+      title
+      price
+      image
+      isPopular
+    }
+  }
+}
+    `;
 export const LayoutDataQuery = gql`
     query LayoutDataQuery {
   categories {
