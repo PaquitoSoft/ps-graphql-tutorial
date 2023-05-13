@@ -25,7 +25,7 @@ export type Address = {
 export type Category = {
   __typename?: 'Category';
   code: Scalars['String'];
-  products?: Maybe<Array<Maybe<Product>>>;
+  products: Array<Product>;
 };
 
 export type Mutation = {
@@ -124,7 +124,14 @@ export type CategoryDetailQueryQueryVariables = Exact<{
 }>;
 
 
-export type CategoryDetailQueryQuery = { __typename?: 'Query', category: { __typename?: 'Category', code: string, products?: Array<{ __typename?: 'Product', id: number, title: string, price: string, image: string, isPopular: boolean } | null> | null } };
+export type CategoryDetailQueryQuery = { __typename?: 'Query', category: { __typename?: 'Category', code: string, products: Array<{ __typename?: 'Product', id: number, title: string, price: string, image: string, isPopular: boolean }> } };
+
+export type ProductDetailQueryQueryVariables = Exact<{
+  productId: Scalars['Int'];
+}>;
+
+
+export type ProductDetailQueryQuery = { __typename?: 'Query', product?: { __typename?: 'Product', id: number, title: string, price: string, category: string, description: string, image: string } | null };
 
 export type LayoutDataQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -133,4 +140,5 @@ export type LayoutDataQueryQuery = { __typename?: 'Query', categories: Array<{ _
 
 
 export const CategoryDetailQueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"CategoryDetailQuery"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"categoryCode"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"category"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"categoryCode"},"value":{"kind":"Variable","name":{"kind":"Name","value":"categoryCode"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"code"}},{"kind":"Field","name":{"kind":"Name","value":"products"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"price"}},{"kind":"Field","name":{"kind":"Name","value":"image"}},{"kind":"Field","name":{"kind":"Name","value":"isPopular"}}]}}]}}]}}]} as unknown as DocumentNode<CategoryDetailQueryQuery, CategoryDetailQueryQueryVariables>;
+export const ProductDetailQueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ProductDetailQuery"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"productId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"product"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"productId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"productId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"price"}},{"kind":"Field","name":{"kind":"Name","value":"category"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"image"}}]}}]}}]} as unknown as DocumentNode<ProductDetailQueryQuery, ProductDetailQueryQueryVariables>;
 export const LayoutDataQueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"LayoutDataQuery"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"categories"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"code"}}]}}]}}]} as unknown as DocumentNode<LayoutDataQueryQuery, LayoutDataQueryQueryVariables>;

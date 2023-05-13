@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { useParams } from "react-router-dom";
-import Layout from "../shared/layout/layout";
-import { graphql } from "../gql";
+import Layout from "../../shared/layout/layout";
+import { graphql } from "../../gql";
 import { useQuery } from "@apollo/client";
+import ProductCard from "./product-card";
 
 const categoryDetailQuery = graphql(/* GraphQL */`
   query CategoryDetailQuery($categoryCode: String!) {
@@ -26,10 +28,17 @@ function CategoryPage() {
 
   return (
     <Layout pageTitle={categoryCode}>
-      <h2>Category products: {categoryCode}</h2>
-      <pre>
-        {JSON.stringify(data?.category.products, null, 2)}
-      </pre>
+      <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+        {
+          data?.category.products?.map(product =>
+            <ProductCard
+              key={product.id}
+              product={product}
+              categoryCode={categoryCode!}
+            />
+          )
+        }
+      </div>
     </Layout>
   );
 }

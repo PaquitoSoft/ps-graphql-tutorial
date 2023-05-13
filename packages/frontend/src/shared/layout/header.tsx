@@ -5,7 +5,7 @@ import { Category } from '../../gql/graphql';
 import { Link, NavLink } from 'react-router-dom';
 
 type TNavigationItemProps = {
-  category: Category;
+  category: Omit<Category, 'products'>;
 };
 
 const isCurrentPage = (categoryCode: string) => window.location.pathname === `/category/${categoryCode}`;
@@ -30,7 +30,7 @@ function NavigationItem(props: TNavigationItemProps) {
 }
 
 type THeaderProps = {
-  categories: Category[];
+  categories: Omit<Category, 'products'>[];
 };
 
 function Header(props: THeaderProps) {

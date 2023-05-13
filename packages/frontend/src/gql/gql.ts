@@ -14,6 +14,7 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  */
 const documents = {
     "\n  query CategoryDetailQuery($categoryCode: String!) {\n    category(categoryCode: $categoryCode) {\n      code\n      products {\n        id\n        title\n        price\n        image\n        isPopular\n      }\n    }\n  }\n": types.CategoryDetailQueryDocument,
+    "\n  query ProductDetailQuery($productId: Int!) {\n    product(productId: $productId) {\n      id\n      title\n      price\n      category\n      description\n      image\n    }\n  }\n": types.ProductDetailQueryDocument,
     "\n  query LayoutDataQuery {\n    categories {\n      code\n    }\n  }\n": types.LayoutDataQueryDocument,
 };
 
@@ -35,6 +36,10 @@ export function graphql(source: string): unknown;
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  query CategoryDetailQuery($categoryCode: String!) {\n    category(categoryCode: $categoryCode) {\n      code\n      products {\n        id\n        title\n        price\n        image\n        isPopular\n      }\n    }\n  }\n"): (typeof documents)["\n  query CategoryDetailQuery($categoryCode: String!) {\n    category(categoryCode: $categoryCode) {\n      code\n      products {\n        id\n        title\n        price\n        image\n        isPopular\n      }\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query ProductDetailQuery($productId: Int!) {\n    product(productId: $productId) {\n      id\n      title\n      price\n      category\n      description\n      image\n    }\n  }\n"): (typeof documents)["\n  query ProductDetailQuery($productId: Int!) {\n    product(productId: $productId) {\n      id\n      title\n      price\n      category\n      description\n      image\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
