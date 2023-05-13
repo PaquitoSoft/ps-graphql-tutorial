@@ -27,7 +27,7 @@ export type Address = {
 export type Category = {
   __typename?: 'Category';
   code: Scalars['String'];
-  products?: Maybe<Array<Maybe<Product>>>;
+  products: Array<Product>;
 };
 
 export type Mutation = {
@@ -238,7 +238,7 @@ export type AddressResolvers<ContextType = GraphqlContext, ParentType extends Re
 
 export type CategoryResolvers<ContextType = GraphqlContext, ParentType extends ResolversParentTypes['Category'] = ResolversParentTypes['Category']> = {
   code?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  products?: Resolver<Maybe<Array<Maybe<ResolversTypes['Product']>>>, ParentType, ContextType>;
+  products?: Resolver<Array<ResolversTypes['Product']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -332,6 +332,18 @@ export const CategoryDetailQuery = gql`
       image
       isPopular
     }
+  }
+}
+    `;
+export const ProductDetailQuery = gql`
+    query ProductDetailQuery($productId: Int!) {
+  product(productId: $productId) {
+    id
+    title
+    price
+    category
+    description
+    image
   }
 }
     `;

@@ -10,7 +10,7 @@ type Product {
 
 type Category {
   code: String!
-  products: [Product]
+  products: [Product!]!
 }
 
 type Username {
