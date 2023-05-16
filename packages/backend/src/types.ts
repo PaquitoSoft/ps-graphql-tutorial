@@ -347,6 +347,21 @@ export const ProductDetailQuery = gql`
   }
 }
     `;
+export const AddProductToCart = gql`
+    mutation AddProductToCart($productId: Int!) {
+  addProductToCart(cartItem: {productId: $productId, quantity: 1}) {
+    id
+    userId
+    items {
+      quantity
+      product {
+        title
+        price
+      }
+    }
+  }
+}
+    `;
 export const LayoutDataQuery = gql`
     query LayoutDataQuery {
   categories {

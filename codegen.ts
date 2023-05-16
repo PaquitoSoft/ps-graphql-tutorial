@@ -5,7 +5,8 @@ const config: CodegenConfig = {
   overwrite: true,
   schema: "./packages/backend/src/schema.graphql",
   documents: [
-    "./packages/frontend/src/**/*.tsx"
+    "./packages/frontend/src/**/*.tsx",
+    "./packages/frontend/src/**/*.ts"
   ],
   generates: {
     "packages/backend/src/types.ts": {

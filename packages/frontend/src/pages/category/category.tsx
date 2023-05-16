@@ -4,6 +4,7 @@ import Layout from "../../shared/layout/layout";
 import { graphql } from "../../gql";
 import { useQuery } from "@apollo/client";
 import ProductCard from "./product-card";
+import Loading from "../../shared/loading/loading";
 
 const categoryDetailQuery = graphql(/* GraphQL */`
   query CategoryDetailQuery($categoryCode: String!) {
@@ -25,6 +26,14 @@ function CategoryPage() {
   const { data } = useQuery(categoryDetailQuery, {
     variables: { categoryCode: categoryCode! }
   });
+
+  if (!data?.category) {
+    return (
+      <Layout pageTitle="">
+        <Loading />
+      </Layout>
+    );
+  }
 
   return (
     <Layout pageTitle={categoryCode}>
