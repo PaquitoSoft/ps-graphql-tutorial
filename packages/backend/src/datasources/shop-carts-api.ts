@@ -88,6 +88,17 @@ class ShopCartsAPI {
 
     return (new this.#model(shopCart)).save();
   }
+
+  async removeProduct(productId: number, userId: string) {
+    const shopCart = await this.#findOrCreateUserCart(userId);
+    const cartItemIndex = shopCart.items.findIndex(item => item.product.id === productId);
+
+    if (cartItemIndex === -1) throw new Error(`No product found in user's cart with ID: ${productId}`);
+
+    shopCart.items.splice(cartItemIndex, 1);
+
+    return shopCart.save();
+  }
 }
 
 export default ShopCartsAPI;

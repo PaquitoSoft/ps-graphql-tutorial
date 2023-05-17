@@ -4,33 +4,8 @@ import Loading from "../../shared/loading/loading";
 import CartItem from "./cart-item";
 import useShopCart from "./use-shop-cart";
 
-const products = [
-  {
-    id: 1,
-    name: 'Throwback Hip Bag',
-    href: '#',
-    color: 'Salmon',
-    price: '$90.00',
-    quantity: 1,
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg',
-    imageAlt: 'Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt.',
-  },
-  {
-    id: 2,
-    name: 'Medium Stuff Satchel',
-    href: '#',
-    color: 'Blue',
-    price: '$32.00',
-    quantity: 1,
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg',
-    imageAlt:
-      'Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.',
-  },
-  // More products...
-]
-
 function ShopCartPage() {
-  const { shopCart } = useShopCart();
+  const { shopCart, onRemoveCartItem } = useShopCart();
 
   if (!shopCart) {
     return (
@@ -49,7 +24,11 @@ function ShopCartPage() {
           <div className="flow-root">
             <ul className="-my-6 divide-y divide-gray-200">
               {shopCart.items.map(cartItem => (
-                <CartItem key={cartItem?.product.id} item={cartItem} />
+                <CartItem
+                  key={cartItem?.product.id}
+                  item={cartItem}
+                  onRemoveClick={onRemoveCartItem}
+                />
               ))}
             </ul>
           </div>

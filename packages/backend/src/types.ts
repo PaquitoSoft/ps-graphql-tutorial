@@ -33,11 +33,17 @@ export type Category = {
 export type Mutation = {
   __typename?: 'Mutation';
   addProductToCart?: Maybe<ShopCart>;
+  removeProductFromCart?: Maybe<ShopCart>;
 };
 
 
 export type MutationAddProductToCartArgs = {
   cartItem?: InputMaybe<NewShopCartItem>;
+};
+
+
+export type MutationRemoveProductFromCartArgs = {
+  productId: Scalars['Int'];
 };
 
 export type NewShopCartItem = {
@@ -244,6 +250,7 @@ export type CategoryResolvers<ContextType = GraphqlContext, ParentType extends R
 
 export type MutationResolvers<ContextType = GraphqlContext, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   addProductToCart?: Resolver<Maybe<ResolversTypes['ShopCart']>, ParentType, ContextType, Partial<MutationAddProductToCartArgs>>;
+  removeProductFromCart?: Resolver<Maybe<ResolversTypes['ShopCart']>, ParentType, ContextType, RequireFields<MutationRemoveProductFromCartArgs, 'productId'>>;
 };
 
 export type ProductResolvers<ContextType = GraphqlContext, ParentType extends ResolversParentTypes['Product'] = ResolversParentTypes['Product']> = {
@@ -366,7 +373,24 @@ export const ShopCartQuery = gql`
     query ShopCartQuery {
   cart {
     id
-    userId
+    totalUnits
+    totalAmount
+    items {
+      quantity
+      product {
+        id
+        title
+        price
+        image
+      }
+    }
+  }
+}
+    `;
+export const RemoveCartItem = gql`
+    mutation RemoveCartItem($productId: Int!) {
+  removeProductFromCart(productId: $productId) {
+    id
     totalUnits
     totalAmount
     items {

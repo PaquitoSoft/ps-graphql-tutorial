@@ -1,10 +1,16 @@
+import { useCallback } from "react";
 import { ShopCartItem } from "../../gql/graphql";
 
 type TCartItemProps = {
   item: ShopCartItem;
+  onRemoveClick: (productId: number) => void;
 };
 
-function CartItem({ item }: TCartItemProps) {
+function CartItem({ item, onRemoveClick }: TCartItemProps) {
+  const removeItemHandler = useCallback(() => {
+    onRemoveClick(item.product.id);
+  }, [item.product.id, onRemoveClick]);
+
   return (
     <li className="flex py-6">
       <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
@@ -31,6 +37,7 @@ function CartItem({ item }: TCartItemProps) {
             <button
               type="button"
               className="font-medium text-indigo-600 hover:text-indigo-400"
+              onClick={removeItemHandler}
             >
               Remove
             </button>

@@ -14,6 +14,10 @@ const resolvers: Resolvers = {
       const updatedShopCart = await dataSources.shopCarts.addProduct(product, userId);
 
       return updatedShopCart;
+    },
+
+    async removeProductFromCart(_parent, params, { userId, dataSources }) {
+      return dataSources.shopCarts.removeProduct(params.productId, userId);
     }
   },
 

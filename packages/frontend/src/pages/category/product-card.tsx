@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Product } from "../../gql/graphql";
 
 type TProductCardProps = {
@@ -18,10 +19,10 @@ function ProductCard({ product, categoryCode }: TProductCardProps) {
       <div className="mt-4 flex justify-between">
         <div>
           <h3 className="text-sm text-gray-700">
-            <a href={`/category/${categoryCode}/product/${product.id}`}>
+            <Link to={`/category/${categoryCode}/product/${product.id}`}>
               <span aria-hidden="true" className="absolute inset-0" />
               {product.title}
-            </a>
+            </Link>
           </h3>
         </div>
         <p className="text-sm font-medium text-gray-900">{product.price}</p>

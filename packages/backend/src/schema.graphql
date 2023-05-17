@@ -67,6 +67,7 @@ input NewShopCartItem {
 
 type Mutation {
   addProductToCart(cartItem: NewShopCartItem): ShopCart @authRequired
+  removeProductFromCart(productId: Int!): ShopCart @authRequired
 }
 
 type Subscription {
