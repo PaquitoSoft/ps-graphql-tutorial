@@ -18,7 +18,8 @@ const documents = {
     "\n  mutation AddProductToCart($productId: Int!) {\n    addProductToCart(cartItem: {\n      productId: $productId,\n      quantity: 1\n    }) {\n      id\n      userId\n      items {\n      quantity\n        product {\n          title\n          price\n        }\n      }\n    }\n  }\n": types.AddProductToCartDocument,
     "\n  query ShopCartQuery {\n    cart {\n      id\n      totalUnits\n      totalAmount\n      items {\n        quantity\n        product {\n          id\n          title\n          price\n          image\n        }\n      }\n    }\n  }\n": types.ShopCartQueryDocument,
     "\n  mutation RemoveCartItem($productId: Int!) {\n    removeProductFromCart(productId: $productId) {\n      id\n      totalUnits\n      totalAmount\n      items {\n        quantity\n        product {\n          id\n          title\n          price\n          image\n        }\n      }\n    }\n  }\n": types.RemoveCartItemDocument,
-    "\n  query LayoutDataQuery {\n    categories {\n      code\n    }\n  }\n": types.LayoutDataQueryDocument,
+    "\n  mutation CheckoutMutation {\n    checkout\n  }\n": types.CheckoutMutationDocument,
+    "\n  query LayoutDataQuery {\n    categories {\n      code\n    }\n    cart {\n      totalUnits\n    }\n  }\n": types.LayoutDataQueryDocument,
 };
 
 /**
@@ -58,7 +59,11 @@ export function graphql(source: "\n  mutation RemoveCartItem($productId: Int!) {
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query LayoutDataQuery {\n    categories {\n      code\n    }\n  }\n"): (typeof documents)["\n  query LayoutDataQuery {\n    categories {\n      code\n    }\n  }\n"];
+export function graphql(source: "\n  mutation CheckoutMutation {\n    checkout\n  }\n"): (typeof documents)["\n  mutation CheckoutMutation {\n    checkout\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query LayoutDataQuery {\n    categories {\n      code\n    }\n    cart {\n      totalUnits\n    }\n  }\n"): (typeof documents)["\n  query LayoutDataQuery {\n    categories {\n      code\n    }\n    cart {\n      totalUnits\n    }\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

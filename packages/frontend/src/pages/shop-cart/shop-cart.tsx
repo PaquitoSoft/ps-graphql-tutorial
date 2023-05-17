@@ -5,7 +5,12 @@ import CartItem from "./cart-item";
 import useShopCart from "./use-shop-cart";
 
 function ShopCartPage() {
-  const { shopCart, onRemoveCartItem } = useShopCart();
+  const {
+    shopCart,
+    onRemoveCartItem,
+    onCheckout,
+    isCheckingOut
+  } = useShopCart();
 
   if (!shopCart) {
     return (
@@ -14,8 +19,6 @@ function ShopCartPage() {
       </Layout>
     );
   }
-
-  console.log({ shopCart });
 
   return (
     <Layout pageTitle="Shop Cart">
@@ -39,13 +42,13 @@ function ShopCartPage() {
             <p>Total</p>
             <p className="text-right">
               <span className="font-bold text-xl">{shopCart.totalAmount}</span>&nbsp;EUR
-              <div className="mt-0.5 font-normal text-sm text-gray-500">
+              <span className="block mt-0.5 font-normal text-sm text-gray-500">
                 <span>{shopCart.totalUnits}</span>&nbsp;units
-              </div>
+              </span>
             </p>
           </div>
           <div className="flex justify-end">
-            <Button onClick={() => false}>
+            <Button isDisabled={isCheckingOut} onClick={onCheckout}>
               Checkout
             </Button>
           </div>

@@ -2,6 +2,7 @@ import { useCallback } from "react";
 import { graphql } from "../../gql";
 import { useMutation, useQuery } from "@apollo/client";
 import { useUser } from "../../shared/providers/user-provider";
+import { useNavigate } from "react-router-dom";
 
 const shopCartQuery = graphql(/* GraphQL */`
   query ShopCartQuery {
@@ -41,8 +42,15 @@ const removeCartItemMutation = graphql(/* GraphQL */`
   }
 `);
 
+const checkoutMutation = graphql(/* GraphQL */`
+  mutation CheckoutMutation {
+    checkout
+  }
+`);
+
 function useShopCart() {
   const { userId } = useUser();
+  const navigate = useNavigate();
 
   const { data } = useQuery(shopCartQuery, {
     context: {
@@ -52,7 +60,12 @@ function useShopCart() {
     }
   });
 
-  const [removeCartItem, { loading }] = useMutation(removeCartItemMutation);
+  const [removeCartItem, { loading: removeFromCartLoading }] = useMutation(removeCartItemMutation);
+  const [checkout, { loading: checkoutLoading }] = useMutation(checkoutMutation, {
+    refetchQueries: [
+      'LayoutDataQuery'
+    ]
+  });
 
   const onRemoveCartItem = useCallback((productId: number) => {
     removeCartItem({
@@ -67,10 +80,17 @@ function useShopCart() {
     })
   }, [removeCartItem, userId]);
 
+  const onCheckout = useCallback(async () => {
+    const { data } = await checkout();
+    navigate(`/order-confirmation/${data?.checkout}`);
+  }, [checkout, navigate]);
+
   return {
     shopCart: data?.cart,
     onRemoveCartItem,
-    isRemovingItemFromCart: loading
+    isRemovingItemFromCart: removeFromCartLoading,
+    onCheckout,
+    isCheckingOut: checkoutLoading
   }
 };
 

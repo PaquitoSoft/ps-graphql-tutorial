@@ -18,6 +18,10 @@ const resolvers: Resolvers = {
 
     async removeProductFromCart(_parent, params, { userId, dataSources }) {
       return dataSources.shopCarts.removeProduct(params.productId, userId);
+    },
+
+    async checkout(_parent, _params, { userId, dataSources }) {
+      return dataSources.shopCarts.checkout(userId);
     }
   },
 

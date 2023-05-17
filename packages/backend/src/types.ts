@@ -33,6 +33,7 @@ export type Category = {
 export type Mutation = {
   __typename?: 'Mutation';
   addProductToCart?: Maybe<ShopCart>;
+  checkout: Scalars['String'];
   removeProductFromCart?: Maybe<ShopCart>;
 };
 
@@ -250,6 +251,7 @@ export type CategoryResolvers<ContextType = GraphqlContext, ParentType extends R
 
 export type MutationResolvers<ContextType = GraphqlContext, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   addProductToCart?: Resolver<Maybe<ResolversTypes['ShopCart']>, ParentType, ContextType, Partial<MutationAddProductToCartArgs>>;
+  checkout?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   removeProductFromCart?: Resolver<Maybe<ResolversTypes['ShopCart']>, ParentType, ContextType, RequireFields<MutationRemoveProductFromCartArgs, 'productId'>>;
 };
 
@@ -405,10 +407,18 @@ export const RemoveCartItem = gql`
   }
 }
     `;
+export const CheckoutMutation = gql`
+    mutation CheckoutMutation {
+  checkout
+}
+    `;
 export const LayoutDataQuery = gql`
     query LayoutDataQuery {
   categories {
     code
+  }
+  cart {
+    totalUnits
   }
 }
     `;

@@ -31,6 +31,7 @@ function NavigationItem(props: TNavigationItemProps) {
 
 type THeaderProps = {
   categories: Omit<Category, 'products'>[];
+  cartItemsCount: number;
 };
 
 function Header(props: THeaderProps) {
@@ -62,7 +63,17 @@ function Header(props: THeaderProps) {
                     </div>
                   </div>
                 </div>
-
+                <Link to="/cart" className="relative">
+                  <ShoppingBagIcon className="h-10 w-10 text-white" />
+                  {
+                    Boolean(props.cartItemsCount) &&
+                    <span
+                      className="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-gray absolute top-6 right-0"
+                    >
+                        {props.cartItemsCount}
+                      </span>
+                  }
+                </Link>
               </div>
             </div>
           )

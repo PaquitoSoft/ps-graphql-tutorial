@@ -36,7 +36,6 @@ const addToCartMutation = graphql(/* GraphQL */`
 `);
 
 function useProduct(productId: number) {
-  console.log({ productDetailQuery });
   const { userId } = useUser();
   const { data } = useQuery(productDetailQuery, {
     variables: {
@@ -55,7 +54,10 @@ function useProduct(productId: number) {
         headers: {
           'Authorization': `Bearer ${userId}`
         }
-      }
+      },
+      refetchQueries: [
+        'LayoutDataQuery'
+      ]
     })
   }, [addToCart, productId, userId]);
 

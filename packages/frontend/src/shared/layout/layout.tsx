@@ -3,6 +3,7 @@ import { useQuery } from "@apollo/client";
 
 import Header from "./header";
 import { graphql } from "../../gql";
+import { useUser } from "../providers/user-provider";
 
 type TLayoutProps = {
   pageTitle?: string,
@@ -14,15 +15,28 @@ const layoutDataQuery = graphql(/* GraphQL */`
     categories {
       code
     }
+    cart {
+      totalUnits
+    }
   }
 `);
 
 function Layout(props: TLayoutProps) {
-  const { data } = useQuery(layoutDataQuery);
+  const { userId } = useUser();
+  const { data } = useQuery(layoutDataQuery, {
+    context: {
+      headers: {
+        'Authorization': `Bearer ${userId}`
+      }
+    }
+  });
 
   return (
     <>
-      <Header categories={data?.categories || []} />
+      <Header
+        categories={data?.categories || []}
+        cartItemsCount={data?.cart?.totalUnits || 0}
+      />
 
       {
         Boolean(props.pageTitle) &&

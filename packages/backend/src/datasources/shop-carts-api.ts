@@ -99,6 +99,13 @@ class ShopCartsAPI {
 
     return shopCart.save();
   }
+
+  async checkout(userId: string) {
+    const shopCart = await this.#findOrCreateUserCart(userId);
+    const orderId = shopCart.id as string;
+    await shopCart.deleteOne();
+    return orderId;
+  }
 }
 
 export default ShopCartsAPI;
