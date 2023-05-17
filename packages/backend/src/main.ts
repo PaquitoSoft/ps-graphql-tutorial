@@ -20,6 +20,8 @@ import UsersAPI from './datasources/users-api';
 import { connect } from './db/connection-manager';
 import ShopCartModel from './db/models/shop-cart.model';
 
+const HTTP_PORT = process.env.PORT;
+
 type AppPubSubDefinition = {
   productAddedToCart: [payload: ShopCartItem]
 }
@@ -84,8 +86,8 @@ async function bootstrap() {
   const server = createServer(yoga);
 
   // Start HTTP server
-  server.listen(4004, () => {
-    console.info('Server is running on http://localhost:4004/graphql');
+  server.listen(HTTP_PORT, () => {
+    console.info(`Server is running on http://localhost:${HTTP_PORT}/graphql`);
   });
 }
 
