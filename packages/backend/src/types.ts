@@ -77,7 +77,7 @@ export type QueryProductArgs = {
 export type ShopCart = {
   __typename?: 'ShopCart';
   id: Scalars['String'];
-  items: Array<Maybe<ShopCartItem>>;
+  items: Array<ShopCartItem>;
   totalAmount: Scalars['Int'];
   totalUnits: Scalars['Int'];
   userId: Scalars['String'];
@@ -266,7 +266,7 @@ export type QueryResolvers<ContextType = GraphqlContext, ParentType extends Reso
 
 export type ShopCartResolvers<ContextType = GraphqlContext, ParentType extends ResolversParentTypes['ShopCart'] = ResolversParentTypes['ShopCart']> = {
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  items?: Resolver<Array<Maybe<ResolversTypes['ShopCartItem']>>, ParentType, ContextType>;
+  items?: Resolver<Array<ResolversTypes['ShopCartItem']>, ParentType, ContextType>;
   totalAmount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   totalUnits?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   userId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -357,6 +357,25 @@ export const AddProductToCart = gql`
       product {
         title
         price
+      }
+    }
+  }
+}
+    `;
+export const ShopCartQuery = gql`
+    query ShopCartQuery {
+  cart {
+    id
+    userId
+    totalUnits
+    totalAmount
+    items {
+      quantity
+      product {
+        id
+        title
+        price
+        image
       }
     }
   }

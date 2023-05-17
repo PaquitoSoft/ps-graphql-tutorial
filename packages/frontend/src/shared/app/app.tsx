@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import HomePage from '../../pages/home';
 import CategoryPage from '../../pages/category/category';
 import ProductPage from '../../pages/product/product';
+import ShopCartPage from '../../pages/shop-cart/shop-cart';
 import { UserProvider } from '../providers/user-provider';
 
 const client = new ApolloClient({
@@ -20,6 +21,8 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/category/:categoryCode" element={<CategoryPage />} />
             <Route path="/category/:categoryCode/product/:productId" element={<ProductPage />} />
+            <Route path="/product/:productId" element={<ProductPage />} />
+            <Route path="/cart" element={<ShopCartPage />} />
           </Routes>
         </BrowserRouter>
       </UserProvider>

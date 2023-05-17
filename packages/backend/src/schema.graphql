@@ -47,7 +47,7 @@ type ShopCartItem {
 type ShopCart {
   id: String!
   userId: String!
-  items: [ShopCartItem]!
+  items: [ShopCartItem!]!
   totalUnits: Int!
   totalAmount: Int!
 }

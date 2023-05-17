@@ -5,7 +5,7 @@
   "scripts": {
     "build": "nx run-many -t build",
     "dev": "nx run-many -t serve",
-    "codegen": "graphql-codegen --config codegen.ts"
+    "codegen": "graphql-codegen -v --config codegen.ts"
   },
   "private": true,
   "devDependencies": {

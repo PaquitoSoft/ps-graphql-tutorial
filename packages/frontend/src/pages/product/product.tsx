@@ -3,8 +3,9 @@ import { useParams } from "react-router-dom";
 import cx from 'classnames';
 
 import Layout from "../../shared/layout/layout";
-import useProduct from "./useProduct";
+import useProduct from "./use-product";
 import Loading from "../../shared/loading/loading";
+import Button from "../../shared/button/button";
 
 function ProductPage() {
   const { productId } = useParams();
@@ -47,19 +48,13 @@ function ProductPage() {
                 <p className="text-base text-gray-900">{product.description}</p>
               </div>
 
-              <button
-                type="button"
-                disabled={isAddingProductToCart}
+              <Button
+                size="l"
+                isDisabled={isAddingProductToCart}
                 onClick={onAddToCart}
-                className={
-                  cx(
-                    'mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2',
-                    { 'cursor-not-allowed bg-gray-500 hover:bg-gray-600 focus:ring-0': isAddingProductToCart }
-                  )
-                }
               >
                 Add to cart
-              </button>
+              </Button>
             </div>
 
           </div>

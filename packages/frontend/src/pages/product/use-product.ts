@@ -36,6 +36,7 @@ const addToCartMutation = graphql(/* GraphQL */`
 `);
 
 function useProduct(productId: number) {
+  console.log({ productDetailQuery });
   const { userId } = useUser();
   const { data } = useQuery(productDetailQuery, {
     variables: {
