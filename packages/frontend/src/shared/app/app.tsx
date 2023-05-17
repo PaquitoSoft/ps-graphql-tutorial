@@ -13,7 +13,7 @@ import OrderConfirmationPage from '../../pages/order-confirmation/order-confirma
 const USER_ID_STORAGE_KEY = '__uid';
 
 const httpLink = createHttpLink({
-  uri: 'http://localhost:4004/graphql'
+  uri: process.env.NX_GRAPHQL_ENDPOINT
 });
 
 const authLink = setContext((_, { headers }) => {
