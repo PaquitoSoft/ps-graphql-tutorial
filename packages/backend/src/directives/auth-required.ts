@@ -1,6 +1,6 @@
 import { mapSchema, getDirective, MapperKind } from '@graphql-tools/utils';
 import { GraphQLFieldConfig, GraphQLSchema, defaultFieldResolver } from 'graphql';
-import { GraphqlContext } from '../main';
+import { GraphqlContext } from '../graphql-server';
 
 const DIRECTVE_NAME = 'authRequired';
 
