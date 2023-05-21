@@ -1,4 +1,3 @@
-
 import type { CodegenConfig } from '@graphql-codegen/cli';
 
 const config: CodegenConfig = {
@@ -11,7 +10,7 @@ const config: CodegenConfig = {
   generates: {
     "packages/backend/src/types.ts": {
       config: {
-        contextType: './main#GraphqlContext'
+        contextType: './graphql-server#GraphqlContext'
       },
       plugins: ["typescript", "typescript-resolvers", "typescript-document-nodes"]
     },
