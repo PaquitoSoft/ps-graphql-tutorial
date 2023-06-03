@@ -1,7 +1,9 @@
-import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@apollo/client';
-import { setContext } from '@apollo/client/link/context';
+import {
+  ApolloProvider,
+  type ApolloClient,
+  type NormalizedCacheObject
+} from '@apollo/client';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { v4 as uuid } from 'uuid';
 
 import HomePage from '../../pages/home/home';
 import CategoryPage from '../../pages/category/category';
@@ -10,34 +12,13 @@ import ShopCartPage from '../../pages/shop-cart/shop-cart';
 import { UserProvider } from '../providers/user-provider';
 import OrderConfirmationPage from '../../pages/order-confirmation/order-confirmation';
 
-const USER_ID_STORAGE_KEY = '__uid';
+type TAppProps = {
+  apolloClient: ApolloClient<NormalizedCacheObject>;
+}
 
-const httpLink = createHttpLink({
-  uri: process.env.NX_GRAPHQL_ENDPOINT
-});
-
-const authLink = setContext((_, { headers }) => {
-  let userId = window.localStorage.getItem(USER_ID_STORAGE_KEY);
-  if (!userId) {
-    userId = uuid();
-    window.localStorage.setItem(USER_ID_STORAGE_KEY, userId);
-  }
-  return {
-    headers: {
-      ...headers,
-      authorization: `Bearer ${userId}`
-    }
-  };
-});
-
-const client = new ApolloClient({
-  link: authLink.concat(httpLink),
-  cache: new InMemoryCache(),
-});
-
-function App() {
+function App({ apolloClient }: TAppProps) {
   return (
-    <ApolloProvider client={client}>
+    <ApolloProvider client={apolloClient}>
       <UserProvider>
         <BrowserRouter>
           <Routes>

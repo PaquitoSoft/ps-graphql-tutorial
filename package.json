@@ -6,9 +6,11 @@
     "build": "nx run-many -t build",
     "dev": "nx run-many -t serve",
     "codegen": "graphql-codegen -v -w --config codegen.ts",
-    "test": "nx run-many -t test",
+    "test": "nx run-many -t test -p backend frontend --skip-nx-cache true",
     "test:backend": "nx run backend:test",
-    "test:backend:watch": "nx run backend:test --watch=true"
+    "test:backend:watch": "nx run backend:test --watch=true",
+    "test:frontend": "nx run frontend:test",
+    "test:frontend:watch": "nx run frontend:test --watch=true"
   },
   "private": true,
   "devDependencies": {
@@ -32,9 +34,11 @@
     "@nx/react": "^16.1.4",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.7",
     "@svgr/webpack": "^6.1.2",
-    "@testing-library/react": "14.0.0",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^14.0.0",
     "@types/jest": "^29.4.0",
     "@types/node": "18.14.2",
+    "@types/node-fetch": "^2.6.4",
     "@types/react": "18.0.28",
     "@types/react-dom": "18.0.11",
     "@types/react-router-dom": "5.3.3",
@@ -56,6 +60,7 @@
     "jest-environment-jsdom": "^29.4.1",
     "jest-environment-node": "^29.4.1",
     "msw": "^1.2.1",
+    "node-fetch": "^2.6.11",
     "nx": "15.9.2",
     "postcss": "8.4.21",
     "prettier": "^2.6.2",
@@ -88,5 +93,8 @@
     "tailwindcss": "^3.3.1",
     "tslib": "^2.3.0",
     "uuid": "^9.0.0"
+  },
+  "msw": {
+    "workerDirectory": "dist\\packages\\frontend"
   }
 }

@@ -4,8 +4,6 @@ import { buildHTTPExecutor } from '@graphql-tools/executor-http';
 import { createAppYoga } from './graphql-server';
 import { mockServer } from './mocks/server';
 
-global.__foo = '';
-
 // Establish API mocking before all tests.
 // @ts-ignore
 beforeAll(() => {

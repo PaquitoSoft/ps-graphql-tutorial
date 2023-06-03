@@ -7,5 +7,6 @@ export default {
     '^.+\\.[tj]sx?$': ['babel-jest', { presets: ['@nrwl/react/babel'] }],
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../coverage/packages/frontend',
+  // coverageDirectory: '../../coverage/packages/frontend',
+  setupFilesAfterEnv: ['./src/setup-tests.ts'],
 };
